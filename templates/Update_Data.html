@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %} Django Tutorial | Update Data {% endblock %}
+{% block body %}
+<div class="post">
+    <h1>Django Update Data</h1>
+    <hr>
+    <h2>Update Records</h2>
+    <div class="content">
+        <p>To update records that are already in the database, we first have to get the record we want to update:</p>
+    </div>
+    <div class="bg1">
+        <p>
+            >>> from members.models import Member <br>
+            >>> x = Member.objects.all()[4] 
+        </p>
+    </div>
+    <div class="content">
+        <p><mark>x</mark> will now represent the member at index 4, which is "Stale Refsnes", but to make sure, let us see if that is correct:</p>
+    </div>
+    <div class="bg1">
+        <p>>>> x.firstname</p>
+    </div>
+    <div class="content">
+        <p>This should give you this result:</p>
+    </div>
+    <div class="bg1">
+        <p>'Stale'</p>
+    </div>
+    <div class="content">
+        <p>Now we can change the values of this record:</p>
+    </div>
+    <div class="bg1">
+        <p>
+            >>> x.firstname = "Stalikken" <br>
+            >>> x.save()
+        </p>
+    </div>
+    <div class="content">
+        <p>Execute this command to see if the Member table got updated:</p>
+    </div>
+    <div class="bg1">
+        <p>>>> Member.objects.all().values()</p>
+    </div>
+    <div class="content">
+        <p>Hopefully, the result will look like this:</p>
+    </div>
+    <div class="bg1">
+        <p>
+            &lt;QuerySet [{'id': 1, 'firstname': 'Emil', 'lastname': 'Refsnes'}, <br>
+            {'id': 2, 'firstname': 'Tobias', 'lastname': 'Refsnes'}, <br>
+            {'id': 3, 'firstname': 'Linus', 'lastname': 'Refsnes'}, <br>
+            {'id': 4, 'firstname': 'Lene', 'lastname': 'Refsnes'}, <br>
+            {'id': 5, 'firstname': 'Stalikken', 'lastname': 'Refsnes'}, <br>
+            {'id': 6, 'firstname': 'Jane', 'lastname': 'Doe'}]>
+        </p>
+    </div>
+    <hr>
+</div>
+{% endblock  %}

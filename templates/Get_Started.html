@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %} Django Tutorial | Get Started {% endblock %}
+{% block body %}
+<div class="post">
+    <h1>Getting started with Django</h1>
+    <div class="bg">
+        <p>To install Django, you must have Python installed, and a package manager like PIP. <br><br>
+            PIP is included in Python from version 3.4.</p>
+    </div>
+    <hr>
+    <h2>Django Requires Python</h2>
+    <div class="content">
+        <p>To check if your system has Python installed, run this command in the command prompt:</p>
+    </div>
+    <div class="bg1">
+        <p>python --version</p>
+    </div>
+    <div class="content">
+        <p>If Python is installed, you will get a result with the version number, like this</p>
+    </div>
+    <div class="bg1">
+        <p>Python 3.9.2</p>
+    </div>
+    <div class="content">
+        <p>If you find that you do not have Python installed on your computer, then you can download it for free from
+            the following website: https://www.python.org/</p>
+    </div>
+    <hr>
+    <h2>PIP (Package Installer for Python)</h2>
+    <div class="content">
+        <p>To install Django, you must use a package manager like PIP, which is included in Python from version 3.4.</p>
+        <p>If PIP is installed, you will get a result with the version number. <br><br>
+            For me, on a windows machine, the result looks like this:
+        </p>
+    </div>
+    <div class="bg1">
+        <p>pip 20.2.3 from c:\python39\lib\site-packages\pip (python 3.9)
+    </div>
+    <div class="content">
+        <p>If you do not have PIP installed, you can download and install it from this page: <a href="https://pypi.org/project/pip/">https://pypi.org/project/pip/</a></p>
+    </div>
+    <hr>
+    <h2>Virtual Environment</h2>
+    <div class="content">
+        <p>It is suggested to have a dedicated virtual environment for each Django project, and in the next chapter you will learn how to create a virtual environment, and then install Django in it.</p>
+    </div>
+    <hr>
+</div>
+{% endblock %}

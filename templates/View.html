@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %} Django Tutorial | View {% endblock %}
+{% block body %}
+<div class="post">
+    <h1>Views</h1>
+    <div class="content">
+        <p>Django views are Python functions that takes http requests and returns http response, like HTML documents. <br><br>
+            A web page that uses Django is full of views with different tasks and missions. <br><br>
+            Views are usually put in a file called views.py located on your app's folder. <br><br>
+            There is a views.py in your members folder that looks like this:</p>
+    </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>views.py</p>
+    <div class="bg">
+        <p>from django.shortcuts import render <br> <br>
+
+            # Create your views here.</p>
+    </div>
+    <div class="content">
+        <p>Find it and open it, and replace the content with this:</p>
+    </div>
+    <div class="bg">
+        <p>from django.shortcuts import render <br>
+            from django.http import HttpResponse <br><br>
+            
+            def members(request): <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;return HttpResponse("Hello world!")</p>
+    </div>
+    <hr>
+</div>
+{% endblock  %}

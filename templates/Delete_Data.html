@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %} Django tutorial | Delete Data {% endblock %}
+{% block body %}
+<div class="post">
+    <h1>Django Delete Data</h1>
+    <hr>
+    <h2>Delete Records</h2>
+    <div class="content">
+        <p>To delete a record in a table, start by getting the record you want to delete:</p>
+    </div>
+    <div class="bg1">
+        <p>
+            >>> from members.models import Member <br>
+            >>> x = Member.objects.all()[5]
+        </p>
+    </div>
+    <div class="content">
+        <p><mark>x</mark> will now represent the member at index 5, which is "Jane Doe", but to make sure, let us see if that is correct:</p>
+    </div>
+    <div class="bg1">
+        <p>>>> x.firstname</p>
+    </div>
+    <div class="content">
+        <p>This should give you this result:</p>
+    </div>
+    <div class="bg1">
+        <p>'Jane'</p>
+    </div>
+    <div class="content">
+        <p>Now we can delete the record:</p>
+    </div>
+    <div class="bg1">
+        <p>>>> x.delete()</p>
+    </div>
+    <div class="content">
+        <p>The result will be:</p>
+    </div>
+    <div class="bg1">
+        <p>(1, {'members.Member': 1})</p>
+    </div>
+    <div class="content">
+        <p>Which tells us how many items were deleted, and from which Model. <br><br>
+            If we look at the Member Model, we can see that 'Jane Doe' is removed from the Model:
+        </p>
+    </div>
+    <div class="bg1">
+        <p>>>> Member.objects.all().values() <br>
+            &lt;QuerySet [{'id': 1, 'firstname': 'Emil', 'lastname': 'Refsnes'}, <br>
+            {'id': 2, 'firstname': 'Tobias', 'lastname': 'Refsnes'}, <br>
+            {'id': 3, 'firstname': 'Linus', 'lastname': 'Refsnes'}, <br>
+            {'id': 4, 'firstname': 'Lene', 'lastname': 'Refsnes'}, <br>
+            {'id': 5, 'firstname': 'Stalikken', 'lastname': 'Refsnes'}]&gt;</p>
+    </div>
+    <hr>
+</div>
+{% endblock  %}

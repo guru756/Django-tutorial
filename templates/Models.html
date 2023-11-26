@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %} Django Tutorial | Models {% endblock %}
+{% block body %}
+<div class="post">
+    <h1>Django Models</h1>
+    <p>Models in Django are used to represent the data that you want to store, and how it should be stored.</p>
+    <hr>
+    <h2>Models</h2>
+    <div class="content">
+        <p>
+            Up until now in this tutorial, output has been static data from Python or HTML templates. <br><br>
+            Now we will see how Django allows us to work with data, without having to change or upload files in the
+            prosess. <br><br>
+            In Django, data is created in objects, called Models, and is actually tables in a database.
+        </p>
+    </div>
+    <hr>
+    <h2>Create Table (Model)</h2>
+    <div class="content">
+        <p>
+            To create a model, navigate to the <mark>models.py</mark> file in the </mark>/my_app/</mark> folder.
+            <br><br>
+            Open it, and add a <mark>Member</mark> table by creating a <mark>Member</mark> <mark>class</mark>, and
+            describe the table fields in it:
+        </p>
+    </div>
+    <div class="content1">
+        <p>my_project/my_app/models.py:</p>
+    </div>
+    <div class="bg">
+        <p>from django.db import models <br><br>
+            class Member(models.Model): <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;firstname = models.CharField(max_length=255) <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;lastname = models.CharField(max_length=255)
+        </p>
+    </div>
+    <div class="content">
+        <p>
+            The first field, firstname, is a Text field, and will contain the first name of the members. <br><br>
+            The second field, lastname, is also a Text field, with the member's last name. <br><br>
+            Both firstname and lastname is set up to have a maximum of 255 characters.
+        </p>
+    </div>
+    <hr>
+    <h2>SQLite Database</h2>
+    <div class="content">
+        <p>
+            When we created the Django project, we got an empty SQLite database. <br><br>
+            It was created in the <mark>my_project</mark> root folder, and has the filename <mark>db.sqlite3</mark>.
+            <br><br>
+            By default, all Models created in the Django project will be created as tables in this database.
+        </p>
+    </div>
+    <hr>
+    <h2>Migrate</h2>
+    <div class="content">
+        <p>
+            Now when we have described a Model in the <mark>models.py</mark> file, we must run a command to actually
+            create the table in the database. <br><br>
+            Navigate to the <mark>/my_project/</mark> folder and run this command:
+        </p>
+    </div>
+    <div class="bg1">
+        <p>py manage.py makemigrations</p>
+    </div>
+    <div class="content">
+        <p>Which will result in this output:</p>
+    </div>
+    <div class="bg1">
+        <p>
+            Migrations for 'my_app': <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;members\migrations\0001_initial.py <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Create model Member <br><br>
+            (myworld) C:\Users\Your Name\myworld\my_project>
+        </p>
+    </div>
+    <div class="content">
+        <p>
+            The table is not created yet, you will have to run one more command, then Django will create and execute an
+            SQL statement, based on the content of the new file in the <mark>/migrations/</mark> folder. <br><br>
+            Run the migrate command:
+        </p>
+    </div>
+    <div class="bg1">
+        <p>
+            py manage.py migrate
+        </p>
+    </div>
+    <div class="content">
+        <p>Which will result in this output:</p>
+    </div>
+    <div class="bg1">
+        <p>
+            Operations to perform: <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;Apply all migrations: admin, auth, contenttypes, members, sessions <br>
+            Running migrations: <br> 
+            &nbsp;&nbsp;&nbsp;&nbsp;Applying members.0001_initial... OK <br><br>
+            (myworld) C:\Users\Your Name\myworld\my_project>
+        </p>
+    </div>
+    <div class="content">
+        <p>Now you have a <mark>Member</mark> table in you database!</p>
+    </div>
+    <hr>
+</div>
+{% endblock %}

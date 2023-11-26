@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %} Django Tutorial | Update Model {% endblock %}
+{% block body %}
+<div class="post">
+    <h1>Django Update Model</h1>
+    <hr>
+    <h2>Add Fields in the Model</h2>
+    <div class="content">
+        <p>To add a field to a table after it is created, open the <mark>models.py</mark> file, and make your changes:</p>
+    </div>
+    <div class="content1">
+        <p>my_project/my_app/models.py:</p>
+    </div>
+    <div class="bg">
+        <p>from django.db import models <br><br>
+            class Member(models.Model): <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;firstname = models.CharField(max_length=255) <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;lastname = models.CharField(max_length=255) <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;phone = models.IntegerField() <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;joined_date = models.DateField() <br>
+        </p>
+    </div>
+    <div class="content">
+        <p>As you can see, we want to add <mark>phone</mark> and <mark>joined_date</mark> to our Member Model. <br><br>
+            This is a change in the Model's structure, and therefor we have to make a migration to tell Django that it has to update the database:</p>
+    </div>
+    <div class="bg1">
+        <p>py manage.py makemigrations members</p>
+    </div>
+    <div class="content">
+        <p>Which, in my case, will result in a prompt, because I try to add fields that are not allowed to be null, to a table that already contains records. <br><br>
+            As you can see, Django asks if I want to provide the fields with a specific value, or if I want to stop the migration and fix it in the model:
+        </p>
+    </div>
+    <div class="bg1">
+        <p>py manage.py makemigrations members <br>
+            You are trying to add a non-nullable field 'joined_date' to members without a default; we can't do that (the database needs something to populate existing rows). <br>
+            Please select a fix: <br>
+             &nbsp;1&#10099; Provide a one-off default now (will be set on all existing rows with a null value for <br> this column) <br>
+             &nbsp;2&#10099; Quit, and let me add a default in models.py <br>
+            Select an option:</p>
+    </div>
+    <div class="content">
+        <p>I will select option 2, and open the <mark>models.py</mark> file again and allow NULL values for the two new fields:</p>
+    </div>
+    <div class="content1">
+        <p>my_project/my_app/models.py:</p>
+    </div>
+    <div class="bg">
+        <p>from django.db import models <br><br>
+            class Member(models.Model): <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;firstname = models.CharField(max_length=255) <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;lastname = models.CharField(max_length=255) <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;phone = models.IntegerField(null=True) <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;joined_date = models.DateField(null=True)
+        </p>
+    </div>
+    <div class="content">
+        <p>And make the migration once again:</p>
+    </div>
+    <div class="bg1">
+        <p>py manage.py makemigrations members</p>
+    </div>
+    <div class="content">
+        <p>And Run the migrate command:</p>
+    </div>
+    <div class="bg1">
+        <p>py manage.py migrate</p>
+    </div>
+    <hr>
+    <h2>Insert Data</h2>
+    <div class="content">
+        <p>We can insert data to the two new fields with the same approach as we did in the Update Data chapter: <br><br>
+            At the bottom, after the three <mark>>>></mark> write the following (and hit [enter] for each line):
+        </p>
+    </div>
+    <div class="bg1">
+        <p>>>> from members.models import Member <br>
+            >>> x = Member.objects.all()[0] <br>
+            >>> x.phone = 5551234 <br>
+            >>> x.joined_date = '2022-01-05' <br>
+            >>> x.save()
+        </p>
+    </div>
+    <div class="content">
+        <p>This will insert a phone number and a date in the Member Model, at least for the first record, the four remaining records will for now be left empty. We will deal with them later in the tutorial. <br><br>
+            Execute this command to see if the Member table got updated:</p>
+    </div>
+    <div class="bg1">
+        <p>>>> Member.objects.all().values()</p>
+    </div>
+    <div class="content">
+        <p>The result should look like this:</p>
+    </div>
+    <div class="bg1">
+        <p>&lt;QuerySet [ <br>
+            {'id': 1, 'firstname': 'Emil', 'lastname': 'Refsnes', 'phone': 5551234, 'joined_date': datetime.date(2022, 1, 5)}, <br>
+            {'id': 2, 'firstname': 'Tobias', 'lastname': 'Refsnes', 'phone': None, 'joined_date': None}, <br>
+            {'id': 3, 'firstname': 'Linus', 'lastname': 'Refsnes', 'phone': None, 'joined_date': None}, <br>
+            {'id': 4, 'firstname': 'Lene', 'lastname': 'Refsnes', 'phone': None, 'joined_date': None}, <br>
+            {'id': 5, 'firstname': 'Stalikken', 'lastname': 'Refsnes', 'phone': None, 'joined_date': None}]&gt;
+        </p>
+    </div>
+    <hr>
+</div>
+{% endblock  %}

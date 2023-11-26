@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %} Django Tutorial | Form {% endblock %}
+{% block body %}
+<div class="post">
+    <h1>Django Forms</h1>
+    <hr>
+    <div class="content">
+        <p>When one creates a Form class, the most important part is defining the fields of the form. Each field has custom validation logic, along with a few other hooks. This article revolves around various fields one can use in a form along with various features and techniques concerned with Django Forms. Forms are basically used for taking input from the user in some manner and using that information for logical operations on databases. For example, Registering a user by taking input as his name, email, password, etc. <br> <br>
+            Django maps the fields defined in Django forms into HTML input fields. Django handles three distinct parts of the work involved in forms:
+        </p>
+        <p>
+            <ul>
+                <li>preparing and restructuring data to make it ready for rendering</li>
+                <li>creating HTML forms for the data</li>
+                <li>receiving and processing submitted forms and data from the client</li>
+            </ul>
+        </p>
+    </div>
+    <img src="https://media.geeksforgeeks.org/wp-content/uploads/20200107124202/flowChart-1-1024x682.png" alt="user form" style="height: 300px;">
+    <div class="content">
+        <p>Note that all types of work done by Django forms can be done with advanced HTML stuff, but Django makes it easier and efficient especially the validation part. Once you get hold of Django forms you will just forget about HTML forms.</p>
+    </div>
+    <hr>
+    <h2>Creating A Django Form</h2>
+    <div class="bg">
+        <p>from django import forms  <br> <br>   
+            class InputForm(forms.Form): <br> 
+            &nbsp;&nbsp;&nbsp;&nbsp;first_name = forms.CharField(max_length = 200)   <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;last_name = forms.CharField(max_length = 200)  <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;roll_number = forms.IntegerField(  
+                                 help_text = "Enter 6 digit roll number"
+                                 )  <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;password = forms.CharField(widget = forms.PasswordInput())  
+        </p>
+    </div>
+    <hr>
+    <h2>Render Django Forms</h2>
+    <div class="content">
+        <p>Django form fields have several built-in methods to ease the work of the developer but sometimes one needs to implement things manually for customizing User Interface(UI). A form comes with 3 in-built methods that can be used to render Django form fields.</p>
+    </div>
+    <div class="content1">
+        <p>Viws.py</p>
+    </div>
+    <div class="bg">
+        <p>from django.shortcuts import render <br>
+            from .forms import InputForm <br><br>
+            def home_view(request): <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;context ={} <br> 
+            &nbsp;&nbsp;&nbsp;&nbsp;context['form']= InputForm() <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;return render(request, "home.html", context) 
+        </p>
+    </div>
+    <div class="content">
+        <p>In view, one needs to just create an instance of the form class created above in forms.py. Now let’s edit templates > home.html </p>
+    </div>
+    <div class="bg">
+        <p>&lt;form action = "" method = "post"&gt; <br> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&#123;% csrf_token %&#125; <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&#123;&#123; form &#125;&#125; <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="submit" value=Submit"&gt; <br> 
+        &lt;/form&gt; 
+        </p>
+    </div>
+    <img src="https://media.geeksforgeeks.org/wp-content/uploads/20191113140709/create-django-form.png" alt="form example" style="width: 100%; border:1px solid whitesmoke;">
+    <hr>
+    <h2>Create Django Form from Models</h2>
+    <div class="content">
+        <p>Django ModelForm is a class that is used to directly convert a model into a Django form. If you’re building a database-driven app, chances are you’ll have forms that map closely to Django models. Now when we have our project ready, create a model in geeks/models.py.</p>
+    </div>
+    <div class="content1">
+        <p>Models.py</p>
+    </div>
+    <div class="bg">
+        <p>
+            from django.db import models <br><br> 
+            class GeeksModel(models.Model): <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;title = models.CharField(max_length = 200) <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;description = models.TextField() <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;last_modified = models.DateTimeField(auto_now_add = True) <br> 
+            &nbsp;&nbsp;&nbsp;&nbsp;img = models.ImageField(upload_to = "images/") <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;def __str__(self): <br> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self.title 
+        </p>
+    </div>
+    <div class="content">
+        <p>To create a form directly for this model, dive into geeks/forms.py and Enter the following code:</p>
+    </div>
+    <div class="content1">
+        <p>Forms.py</p>
+    </div>
+    <div class="bg">
+        <p>
+            from django import forms <br><br>  
+            from .models import GeeksModel <br><br>
+            class GeeksForm(forms.ModelForm): <br> 
+            &nbsp;&nbsp;&nbsp;&nbsp;class Meta: <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;model = GeeksModel <br> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fields = "__all__"
+        </p>
+    </div>
+    <div class="content">
+        <p>Now visit <mark>http://127.0.0.1:8000/</mark> </p>
+    </div>
+    <hr>
+</div>
+{% endblock  %}

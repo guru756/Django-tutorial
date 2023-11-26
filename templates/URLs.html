@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %} Django Tutorial | URLs {% endblock %}
+{% block body %}
+<div class="post">
+    <h1>Django URLs</h1>
+    <hr>
+    <h2>URLs</h2>
+    <div class="content">
+        <p>Create a file named urls.py in the same folder as the views.py file, and type this code in it:</p>
+    </div>
+    <div class="bg">
+        <p>
+            from django.urls import path <br>
+            from . import views <br><br>
+
+            urlpatterns = [ <br>
+             &nbsp;&nbsp;&nbsp;&nbsp;  path('members/', views.members, name='members'), <br>
+            ]
+        </p>
+    </div>
+    <div class="content">
+        <p>The <b>urls.py</b> file you just created is specific for the <b>my_app</b> application. We have to do some routing in the root directory <b>my_project</b> as well. This may seem complicated, but for now, just follow the instructions below. <br><br>
+            There is a file called <b>urls.py</b> on the <b>my_project</b> folder, open that file and add the include module in the import statement, and also add a <b>path()</b> function in the <b>urlpatterns[]</b> list, with arguments that will route users that comes in via <b>127.0.0.1:8000/.</b> <br><br>
+            Then your file will look like this:
+        </p>
+    </div>
+    <div class="bg">
+        <p>from django.contrib import admin <br>
+            from django.urls import include, path <br> <br>
+            urlpatterns = [ <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;path('', include('my_app.urls')), <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;path('admin/', admin.site.urls), <br>
+            ]
+        </p>
+    </div>
+    <div class="content">
+        <p>If the server is not running, navigate to the /my_tennis_club folder and execute this command in the command prompt:</p>
+    </div>
+    <div class="bg1">
+        <p>py manage.py runserver</p>
+    </div>
+    <div class="content">
+        <p>In the browser window, type  <b>127.0.0.1:8000/members/ </b>in the address bar.</p>
+    </div>
+    <hr>
+</div>
+{% endblock %}

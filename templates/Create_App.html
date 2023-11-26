@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %} Django Tutorial | Create App {% endblock %}
+{% block body %}
+<div class="post">
+    <h1>Create New Django App</h1>
+    <hr>
+    <h2>What is an App?</h2>
+    <div class="content">
+        <p>
+            An app in Django is a self-contained module that does a specific job, like user authentication or blog
+            posts. <br><br>
+            An app is a web application that has a specific meaning in your project, like a home page, a contact form,
+            or a members database. <br><br>
+            In this tutorial we will create an app that allows us to list and register members in a database.
+        </p>
+    </div>
+    <hr>
+    <h2>Create App</h2>
+    <div class="content">
+        <p>I will name my app members. <br><br>Start by navigating to the selected location where you want to store the
+            app, in my case the my_tennis_club folder, and run the command below. <br><br>
+            If the server is still running, and you are not able to write commands, press [CTRL] [BREAK], or [CTRL] [C]
+            to stop the server and you should be back in the virtual environment.</p>
+    </div>
+    <div class="bg1">
+        <p>py manage.py startapp my_app</p>
+    </div>
+    <hr>
+</div>
+{% endblock %}

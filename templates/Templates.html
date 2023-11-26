@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %} Django Tutorial | Templates {% endblock %}
+{% block body %}
+<div class="post">
+    <h1>Django Templates</h1>
+    <hr>
+    <h2>Templates</h2>
+    <div class="content">
+        <p>In the Django Intro page, we learned that the result should be in HTML, and it should be created in a
+            template, so let's do that. <br><br>
+            Create a <mark>templates</mark> folder inside the <mark>my_app</mark> folder, and create a HTML file named
+            <mark>myfirst.html.</mark> <br><br>
+            The file structure should be like this:
+        </p>
+    </div>
+    <div class="bg1">
+        <p>my_project<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;manage.py <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;my_project/ <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;my_app/ <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;templates/ <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;myfirst.html</p>
+    </div>
+    <div class="content">
+        <p>Open the HTML file and insert the following:</p>
+    </div>
+    <hr>
+    <h2>Modify the View</h2>
+    <div class="content">
+        <p>Open the <mark>views.py</mark> file and replace the <mark>my_app</mark> view with this:</p>
+    </div>
+    <div class="content1">
+        <p>my_project/my_app/views.py:</p>
+    </div>
+    <div class="bg">
+        <p>from django.http import HttpResponse <br>
+            from django.template import loader <br> <br>
+
+            def members(request): <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;template = loader.get_template('myfirst.html') <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;return HttpResponse(template.render())
+        </p>
+    </div>
+    <hr>
+    <h2>Change Settings</h2>
+    <div class="content">
+        <p>To be able to work with more complicated stuff than "Hello World!", We have to tell Django that a new app is
+            created. <br><br>
+            This is done in the <b>settings.py</b> file in the <b>my_project</b> folder. <br><br>
+            Look up the <b>INSTALLED_APPS[]</b> list and add the <b>my_app</b> app like this:</p>
+    </div>
+    <div class="content1">
+        <p>my_project/my_project/settings.py:</p>
+    </div>
+    <div class="bg">
+        <p>
+            INSTALLED_APPS = [ <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;'django.contrib.admin', <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;'django.contrib.auth', <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;'django.contrib.contenttypes', <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;'django.contrib.sessions', <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;'django.contrib.messages', <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;'django.contrib.staticfiles', <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;'members' <br>
+            ]
+        </p>
+    </div>
+    <div class="bg1">
+        <p>py manage.py migrate</p>
+    </div>
+    <div class="content">
+        <p>Which will produce this output:</p>
+    </div>
+    <div class="bg1">
+        <p>
+            Operations to perform: <br>
+            &nbsp;&nbsp;&nbsp;Apply all migrations: admin, auth, contenttypes, sessions <br>
+            Running migrations: <br>
+            &nbsp;&nbsp;&nbsp;Applying contenttypes.0001_initial... OK <br>
+            &nbsp;&nbsp;&nbsp;Applying auth.0001_initial... OK <br>
+            &nbsp;&nbsp;&nbsp;Applying admin.0001_initial... OK <br>
+            &nbsp;&nbsp;&nbsp;Applying admin.0002_logentry_remove_auto_add... OK <br>
+            &nbsp;&nbsp;&nbsp;Applying admin.0003_logentry_add_action_flag_choices... OK <br>
+            &nbsp;&nbsp;&nbsp;Applying contenttypes.0002_remove_content_type_name... OK <br>
+            &nbsp;&nbsp;&nbsp;Applying auth.0002_alter_permission_name_max_length... OK <br>
+            &nbsp;&nbsp;&nbsp;Applying auth.0003_alter_user_email_max_length... OK <br>
+            &nbsp;&nbsp;&nbsp;Applying auth.0004_alter_user_username_opts... OK <br>
+            &nbsp;&nbsp;&nbsp;Applying auth.0005_alter_user_last_login_null... OK <br>
+            &nbsp;&nbsp;&nbsp;Applying auth.0006_require_contenttypes_0002... OK <br>
+            &nbsp;&nbsp;&nbsp;Applying auth.0007_alter_validators_add_error_messages... OK <br>
+            &nbsp;&nbsp;&nbsp;Applying auth.0008_alter_user_username_max_length... OK <br>
+            &nbsp;&nbsp;&nbsp;Applying auth.0009_alter_user_last_name_max_length... OK <br>
+            &nbsp;&nbsp;&nbsp;Applying auth.0010_alter_group_name_max_length... OK <br>
+            &nbsp;&nbsp;&nbsp;Applying auth.0011_update_proxy_permissions... OK <br>
+            &nbsp;&nbsp;&nbsp;Applying auth.0012_alter_user_first_name_max_length... OK <br>
+            &nbsp;&nbsp;&nbsp;Applying sessions.0001_initial... OK <br> <br>
+            (myworld) C:\Users\Your Name\myworld\my_tennis_club>
+        </p>
+    </div>
+    <div class="content">
+        <p>Start the server by navigating to the <b>/my_project</b> folder and execute this command:</p>
+    </div>
+    <div class="bg1">
+        <p>py manage.py runserver</p>
+    </div>
+    <div class="content">
+        <p>In the browser window, type <b>127.0.0.1:8000/members/</b> in the address bar.</p>
+    </div>
+    <hr>
+</div>
+{% endblock %}

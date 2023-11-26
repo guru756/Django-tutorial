@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %} Django Tutorial | template 404 {% endblock %}
+{% block body %}
+<div class="post">
+    <h1>Django 404 (page not found)</h1>
+    <hr>
+    <h2>Page Not Found</h2>
+    <div class="content">
+        <p>If you try to access a page that does not exist (a 404 error), Django directs you to a built-in view that handles 404 errors. <br><br>
+            You will learn how to customize this 404 view later in this chapter, but first, just try to request a page that does not exist. <br><br>
+            In the browser window, type <mark>127.0.0.1:8000/masfdfg/</mark> in the address bar. <br><br>
+        </p>
+    </div>
+    <img src="https://www.w3schools.com/django/screenshot_django_404_2.png" alt="image 404">
+    <div class="content">
+        <p>If you got the first result, you got directed to the built-in Django 404 template. <br><br>
+            If you got the second result, then DEBUG is set to True in your settings, and you must set it to False to get directed to the 404 template. <br><br>
+            This is done in the settings.py file, which is located in the project folder, in our case the my_tennis_club folder, where you also have to specify the host name from where your project runs from:</p>
+    </div>
+    <div class="content1">
+        <p>my_project/my_app/settings.py:</p>
+    </div>
+    <div class="bg">
+        <p>. <br>
+            . <br>
+            # SECURITY WARNING: don't run with debug turned on in production! <br>
+            DEBUG = False <br><br>
+            
+            ALLOWED_HOSTS = ['*'] <br>
+            . <br>
+            .
+        </p>
+    </div>
+    <div class="content">
+        <p><mark><b>Important:</b> When DEBUG = False, Django requires you to specify the hosts you will allow this Django project to run from. <br><br>
+            In production, this should be replaced with a proper domain name: <br><br>
+            ALLOWED_HOSTS = ['yourdomain.com']</mark>
+        </p>
+    </div>
+    <div class="content">
+        <p>In the browser window, type <mark>127.0.0.1:8000/masfdfg/</mark> in the address bar, and you will get the built-in 404 template:</p>
+    </div>
+    <img src="https://www.w3schools.com/django/screenshot_django_404.png" alt="404 error">
+    <hr>
+    <h2>Customize the 404 Template</h2>
+    <div class="content">
+        <p>Django will look for a file named <mark>404.html</mark> in the <mark>templates</mark> folder, and display it when there is a 404 error. <br><br>
+            If no such file exists, Django shows the "Not Found" that you saw in the example above. <br><br>
+            To customize this message, all you have to do is to create a file in the <mark>templates</mark> folder and name it <mark>404.html</mark>, and fill it with whatever you want:
+        </p>
+    </div>
+    <div class="content1">
+        <p>my_project/my_app/templates/404.html:</p>
+    </div>
+    <div class="bg">
+        <p>
+            &lt;!DOCTYPE html&gt; <br>
+            &lt;html&gt; <br>
+            &lt;title&gt;Wrong address&lt;title&gt; <br>
+            &lt;body&gt; <br> <br>
+            
+            &lt;h1&gt;Ooops!&lt;/h1&gt; <br><br>
+            
+            &lt;h2&gt;I cannot find the file you requested!&lt;/h2&gt; <br><br>
+            
+            &lt;/body&gt; <br>
+            &lt;/html&gt;
+        </p>
+    </div>
+    <div class="content">
+        <p>In the browser window, type <mark>127.0.0.1:8000/masfdfg/</mark> in the address bar, and you will get the customized 404 template:</p>
+    </div>
+    <img src="https://www.w3schools.com/django/screenshot_django_404_oops.png" alt="404 costimize ">
+    <hr>
+</div>
+{% endblock  %}

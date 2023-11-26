@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %} Django Tutorial | Create Project {% endblock %}
+{% block body %}
+<div class="post">
+    <h1>My First Project</h1>
+    <div class="content">
+        <p>Once you have come up with a suitable name for your Django project, like mine: my_project, navigate to where
+            in the file system you want to store the code (in the virtual environment), I will navigate to the myworld
+            folder, and run this command in the command prompt:
+        </p>
+    </div>
+    <div class="bg1">
+        <p>django-admin startproject my_project</p>
+    </div>
+    <hr>
+    <h2>Run the Django Project</h2>
+    <div class="content">
+        <p>Now that you have a Django project, you can run it, and see what it looks like in a browser. <br><br>
+            Navigate to the /my_project folder and execute this command in the command prompt:</p>
+    </div>
+    <div class="bg1">
+        <p>py manage.py runserver</p>
+    </div>
+    <div class="content">
+        <p>Which will produce this result:</p>
+    </div>
+    <div class="bg1">
+        <p>
+            Watching for file changes with StatReloader <br>
+            Performing system checks... <br><br>
+            System check identified no issues (0 silenced).<br><br>
+            You have 18 unapplied migration(s). Your project may not work properly until you apply the <br> migrations for app(s): admin, auth, contenttypes, sessions. <br>
+            Run 'python manage.py migrate' to apply them. <br>
+            October 27, 2022 - 13:03:14 <br>
+            Django version 4.1.2, using settings 'my_project.settings' <br>
+            Starting development server at http://127.0.0.1:8000/ <br>
+            Quit the server with CTRL-BREAK.
+        </p>
+    </div>
+    <div class="content">
+        <p>Open a new browser window and type <b>127.0.0.1:8000 </b>in the address bar.</p>
+    </div>
+    <hr>
+</div>
+{% endblock %}

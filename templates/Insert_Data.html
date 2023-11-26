@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %} Django Tutorial | Insert Data {% endblock %}
+{% block body %}
+<div class="post">
+    <h1>Django Insert Data</h1>
+    <hr>
+    <h2>Add Records</h2>
+    <div class="content">
+        <p>
+            The Members table created in the previous chapter is empty. <br><br>
+            We will use the Python interpreter (Python shell) to add some members to it. <br><br>
+            To open a Python shell, type this command:
+        </p>
+    </div>
+    <div class="bg1">
+        <p>py manage.py shell</p>
+    </div>
+    <div class="content">
+        <p>Now we are in the shell, the result should be something like this:</p>
+    </div>
+    <div class="bg1">
+        <p>
+            Python 3.9.2 (tags/v3.9.2:1a79785, Feb 19 2021, 13:44:55) [MSC v.1928 64 bit (AMD64)] on <br>win32 <br>
+            Type "help", "copyright", "credits" or "license" for more information. <br>
+            (InteractiveConsole) <br>
+            >>>
+        </p>
+    </div>
+    <div class="content">
+        <p>At the bottom, after the three >>> write the following:</p>
+    </div>
+    <div class="bg1">
+        <p>
+            >>> from members.models import Member &nbsp;<span style='font-size:20px;'>&#8626;</span> <br><br>
+            >>> Member.objects.all() &nbsp;<span style='font-size:20px;'>&#8626;</span> <br><br>
+            &lt;QuerySet [] &gt;&nbsp;<span style='font-size:20px;'>&#8626;</span> <br> <br>
+            >>> member = Member(firstname='Emil', lastname='Refsnes') &nbsp;<span style='font-size:20px;'>&#8626;</span>
+            <br><br>
+            >>> member.save() &nbsp;<span style='font-size:20px;'>&#8626;</span> <br><br>
+            >>> Member.objects.all().values() &nbsp;<span style='font-size:20px;'>&#8626;</span> <br><br>
+            &lt;QuerySet [{'id': 1, 'firstname': 'Emil', 'lastname': 'Refsnes'}]&gt;
+        </p>
+    </div>
+    <hr>
+    <h2>Add Multiple Records</h2>
+    <div class="content">
+        <p>You can add multiple records by making a list of <mark>Member</mark> objects, and execute
+            <mark>.save()</mark> on each entry:</p>
+    </div>
+    <div class="bg1">
+        <p>
+            >>> member1 = Member(firstname='Tobias', lastname='Refsnes') <br>
+            >>> member2 = Member(firstname='Linus', lastname='Refsnes') <br>
+            >>> member3 = Member(firstname='Lene', lastname='Refsnes') <br>
+            >>> member4 = Member(firstname='Stale', lastname='Refsnes') <br>
+            >>> member5 = Member(firstname='Jane', lastname='Doe') <br>
+            >>> members_list = [member1, member2, member3, member4, member5] <br>
+            >>> for x in members_list: <br>
+            >>> x.save()
+        </p>
+    </div>
+    <div class="content">
+        <p>
+            Now there are 6 members in the Member table:
+        </p>
+    </div>
+    <div class="bg1">
+        <p>
+            >>> Member.objects.all().values() <br>
+            &lt;QuerySet [{'id': 1, 'firstname': 'Emil', 'lastname': 'Refsnes'}, <br>
+            {'id': 2, 'firstname': 'Tobias', 'lastname': 'Refsnes'}, <br>
+            {'id': 3, 'firstname': 'Linus', 'lastname': 'Refsnes'}, <br>
+            {'id': 4, 'firstname': 'Lene', 'lastname': 'Refsnes'}, <br>
+            {'id': 5, 'firstname': 'Stale', 'lastname': 'Refsnes'}, <br>
+            {'id': 6, 'firstname': 'Jane', 'lastname': 'Doe'}]&gt;
+        </p>
+    </div>
+    <hr>
+</div>
+{% endblock %}

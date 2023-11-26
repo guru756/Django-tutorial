@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block title %} Django Tutorial | File Upload {% endblock %}
+{% block body %}
+<div class="post">
+    <h1>Django File Upload</h1>
+    <hr>
+    <h2>File Uploads</h2>
+    <div class="content">
+        <p>When Django handles a file upload, the file data ends up placed in <b>request.FILES</b> (for more on the
+            request object see the documentation for request and response objects). This document explains how files are
+            stored on disk and in memory, and how to customize the default behavior.</p>
+    </div>
+    <hr>
+    <h2>Basic file uploads</h2>
+    <div class="content">
+        <p>Consider a form containing a <b>FileField:</b></p>
+    </div>
+    <div class="content1">
+        <p>form.py</p>
+    </div>
+    <div class="bg">
+        <p>from django import forms <br><br>
+            class UploadFileForm(forms.Form): <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;title = forms.CharField(max_length=50) <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;file = forms.FileField()
+        </p>
+    </div>
+    <div class="content">
+        <p>
+            A view handling this form will receive the file data in <b>request.FILES</b>, which is a dictionary
+            containing a
+            key for each <b>FileField</b> (or <b>ImageField</b>, or other FileField subclass) in the form. So the data
+            from the above
+            form would be accessible as <b>request.FILES['file'].</b> <br><br>
+            Note that <b>request.FILES</b> will only contain data if the request method was <b>POST</b>, at least one
+            file field was
+            actually posted, and the
+            <b> &lt;form&gt;</b> that posted the request has the attribute <b>enctype="multipart/form-data"</b>.
+            Otherwise, <b>request.FILES</b> will be
+            empty. <br><br>
+            Most of the time, you will pass the file data from request into the form as described in <b>Binding uploaded
+                files to a form</b>. This would look something like:
+        </p>
+    </div>
+    <div class="content1">
+        <p>views.py</p>
+    </div>
+    <div class="bg">
+        <p>
+            from django.http import HttpResponseRedirect <br>
+            from django.shortcuts import render <br>
+            from .forms import UploadFileForm <br> <br>
+            from somewhere import handle_uploaded_file <br><br>
+            def upload_file(request): <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;if request.method == "POST": <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form = UploadFileForm(request.POST, request.FILES)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if form.is_valid(): <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handle_uploaded_file(request.FILES["file"]) <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return HttpResponseRedirect("/success/url/") <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;else: <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form = UploadFileForm() <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;return render(request, "upload.html", {"form": form})
+        </p>
+    </div>
+    <div class="content">
+        <p>Notice that we have to pass <b>request.FILES</b> into the form’s constructor; this is how file data gets bound into a form. <br>
+
+            Here’s a common way you might handle an uploaded file:</p>
+    </div>
+    <div class="bg">
+        <p>
+            def handle_uploaded_file(f): <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;with open("some/file/name.txt", "wb+") as destination: <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for chunk in f.chunks(): <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;destination.write(chunk)
+        </p>
+    </div>
+    <div class="content">
+        <p>Looping over <b>UploadedFile.chunks()</b> instead of using <b>read()</b> ensures that large files don’t overwhelm your system’s memory. <br><br>
+            There are a few other methods and attributes available on <b>UploadedFile</b> objects; see <b>UploadedFile</b> for a complete reference.</p>
+    </div>
+    <h2>Handling uploaded files with a model</h2>
+    <div class="content">
+        <p>If you’re saving a file on a <b>Model</b> with a <b>FileField</b>, using a <b>ModelForm</b> makes this process much easier. The file object will be saved to the location specified by the <b>upload_to</b> argument of the corresponding <b>FileField</b> when calling <b>form.save()</b>:</p>
+    </div>
+    <div class="bg">
+        <p>from django.http import HttpResponseRedirect <br>
+            from django.shortcuts import render <br>
+            from .forms import ModelFormWithFileField <br> <br>
+            def upload_file(request): <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;if request.method == "POST": <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form = ModelFormWithFileField(request.POST, request.FILES) <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if form.is_valid(): <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form.save() <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return HttpResponseRedirect("/success/url/") <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;else: <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form = ModelFormWithFileField() <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;return render(request, "upload.html", {"form": form})</p>
+    </div>
+    <div class="content">
+        <p>If you are constructing an object manually, you can assign the file object from <b>request.FILES</b> to the file field in the model:</p>
+    </div>
+    <div class="bg">
+        <p>from django.http import HttpResponseRedirect <br>
+            from django.shortcuts import render <br>
+            from .forms import UploadFileForm <br>
+            from .models import ModelWithFileField <br><br>
+            def upload_file(request): <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;if request.method == "POST": <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form = UploadFileForm(request.POST, request.FILES) <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if form.is_valid(): <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instance = ModelWithFileField(file_field=request.FILES["file"]) <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instance.save() <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return HttpResponseRedirect("/success/url/") <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;else: <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form = UploadFileForm() <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;return render(request, "upload.html", {"form": form})</p>
+    </div>
+    <div class="content">
+        <p>If you are constructing an object manually outside of a request, you can assign a <b>File</b> like object to the <b>FileField</b>:</p>
+    </div>
+    <div class="bg">
+        <p>from django.core.management.base import BaseCommand <br>
+            from django.core.files.base import ContentFile <br> <br>
+            class MyCommand(BaseCommand): <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;def handle(self, *args, **options): <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;content_file = ContentFile(b"Hello world!", name="hello-world.txt") <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instance = ModelWithFileField(file_field=content_file) <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instance.save()
+        </p>
+    </div>
+    <hr>
+</div>
+{% endblock %}
